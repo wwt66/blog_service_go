@@ -54,6 +54,20 @@ func (e *Error) StatusCode() int {
 	switch e.Code() {
 	case Success.code:
 		return http.StatusOK
-	case
+	case ServerError.code:
+		return http.StatusInternalServerError
+	case InvalidParams.code:
+		return http.StatusBadRequest
+	case UnauthorizedAuthNotExist.code:
+		fallthrough
+	case UnauthorizedTokenError.code:
+		fallthrough
+	case UnauthorizedTokenGenerate.code:
+		fallthrough
+	case UnauthorizedTokenTimeout.code:
+		return http.StatusUnauthorized
+	case TooMayRequests.code:
+		return http.StatusTooManyRequests
 	}
+	return http.StatusInternalServerError
 }
