@@ -2,6 +2,8 @@ package v1
 
 import (
 	"github.com/gin-gonic/gin"
+	"myblogservice/global"
+	"myblogservice/internal/model"
 )
 
 type Tag struct{}
@@ -11,6 +13,20 @@ func NewTag() Tag {
 }
 
 func (t Tag) Get(c *gin.Context) {}
+
+type testStruct struct {
+	a string
+	b string
+}
+
+var tst = testStruct{
+	a: "aaa",
+	b: "bbb",
+}
+
+func (t *testStruct) Error() string {
+	return t.a
+}
 
 // List
 // @Summary  	获取多个标签
@@ -23,7 +39,13 @@ func (t Tag) Get(c *gin.Context) {}
 // @Failure 400 {object} errcode.Error "请求错误"
 // @Failure 500 {object} errcode.Error "内部错误"
 // @Router /api/v1/tags [get]
-func (t Tag) List(c *gin.Context) {}
+func (t Tag) List(c *gin.Context) {
+	tag := model.Tag{
+		State: 1,
+	}
+	cou, err := tag.Count(global.DBEngine)
+	print(cou, err)
+}
 
 // Create
 // @Summary 	创建一个标签
