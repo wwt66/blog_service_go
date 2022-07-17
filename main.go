@@ -43,8 +43,7 @@ func main() {
 }
 
 func test() {
-	global.Logger.Info(1)
-	print(1)
+
 }
 
 func setupSetting() error {

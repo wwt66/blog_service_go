@@ -21,7 +21,7 @@ func NewError(code int, msg string) *Error {
 	return &Error{code: code, msg: msg}
 }
 
-func (e *Error) Error() string {
+func (e *Error) ErrorPrint() string {
 	return fmt.Sprintf("错误码： %d, 错误信息: %s", e.code, e.msg)
 }
 
